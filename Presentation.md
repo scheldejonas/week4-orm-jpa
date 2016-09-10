@@ -13,12 +13,13 @@
 
 - JPA architecture: javax.Persistence
   [!alt text](img/persistencePackage.png)
-- Annotations
+- Annotations  
+
 | Annotation | Description                                                           |
 |------------|-----------------------------------------------------------------------|
-|@Entity     |	This annotation specifies to declare the class as entity or a table.
-|@Table      |	This annotation specifies to declare table name.
-|@Basic	     |  This annotation specifies non constraint fields explicitly.
+|@Entity     |	This annotation specifies to declare the class as entity or a table. |
+|@Table      |	This annotation specifies to declare table name.|
+|@Basic	     |  This annotation specifies non constraint fields explicitly.|
 |@Embedded   |	This annotation specifies the properties of class or an entity whose value instance of an embeddable class.|
 |@Id	     |  This annotation specifies the property, use for identity (primary key of a table) of the class.|
 |@GeneratedValue|	This annotation specifies, how the identity attribute can be initialized such as Automatic, manual, or value taken from sequence table.|
@@ -34,8 +35,8 @@
 |@ManyToOne	| This annotation is used to define a many-to-one relationship between the join Tables.|
 |@OneToMany	| This annotation is used to define a one-to-many relationship between the join Tables.|
 |@OneToOne	| This annotation is used to define a one-to-one relationship between the join Tables.|
-|@NamedQueries	| This annotation is used for specifying list of named queries.
-|@NamedQuery	| This annotation is used for specifying a Query using static name.
+|@NamedQueries	| This annotation is used for specifying list of named queries.|
+|@NamedQuery	| This annotation is used for specifying a Query using static name.|
 
 - Persistence.xml  
   - registers the database and specify the entity class  
@@ -65,7 +66,8 @@
 
 ##Day 2 - More JPA
 ### Relationships
-  - [JPA relationships](http://www.tutorialspoint.com/jpa/jpa_entity_relationships.htm)
+  - [JPA relationships](http://www.tutorialspoint.com/jpa/jpa_entity_relationships.htm)  
+
 | Cardinality | Direction               |  Example |
 |-------------|-------------------------|----------|
 | One-to-one  | Unidirectional  | person and car |
@@ -76,22 +78,22 @@
 | Many-to-many| Unidirectional  | person and phone |
 | Many-to-many| Bidirectional   | employee and company car |
 
-Many to One relationship
+Many to One relationship  
 ![alt text](img/many_to_one_relation.png)  
 
 
-Many to many relationship:
+Many to many relationship:  
 ![alt text](img/many_to_many_relation.png)  
 
-- when bidirectional be ALERT!! on setting the reference on both objects
-  - ```java
-        PhoneNo phone = new PhoneNo();
-        Person person1 = new Person();
-        person.addPhone(phone); //HERE
-        phone.setPerson(person1); //AND HERE
-        phone.setNumber("+45 3225 8921");
-        em.persist(person1);
-        em.persist(phone);
+- when bidirectional be ALERT!! on setting the reference on both objects  
+```java
+    PhoneNo phone = new PhoneNo();
+    Person person1 = new Person();
+    person.addPhone(phone); //HERE
+    phone.setPerson(person1); //AND HERE
+    phone.setNumber("+45 3225 8921");
+    em.persist(person1);
+    em.persist(phone);
 ```
 
 ###Exercise 2 - Relationships
