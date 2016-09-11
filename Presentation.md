@@ -211,7 +211,7 @@ em.remove(book);  //No longer managed (just a POJO again)
 
 ###Chicken or Egg
 ![alt text](img/chickenEgg.jpg)
-<img align="right" src="img/tableOrClass.jpg" />  
+<img align="right" src="img/tableOrClass.png" />  
 
 ###Let's demo!  
 - Create table from Entity object
