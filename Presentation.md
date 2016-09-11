@@ -31,11 +31,11 @@
   - Object Oriented model is about modelling behaviour 
 
 ###Java vs DB: Mismatch issues
-- Example – collections versus tables 
+- Example â€“ collections versus tables 
   - Java/C# use collections to manage lists of objects
   - Databases uses tables to manage lists of entities
 
-- Example – blobs versus objects
+- Example â€“ blobs versus objects
   - Databases uses blobs to manage large objects as simple binary data
   - Java/C# use objects with behaviors 
 
@@ -107,10 +107,10 @@
 ![alt text](img/entity2table.png)
 - Entity classes are very similar to Java beans in that they follow a set of rules.
 - Entity Classes must (:
-  - be annotated with the @Entity annotation.
+  - be annotated with theÂ @EntityÂ annotation.
   - have (at least) a public or protected, no-argument constructor. 
-  - The class must not be declared final. No methods or persistent instance variables must be declared final.
-  - If an entity instance is passed by value as a detached object, the class must implement the Serializable interface.
+  - The class must not be declaredÂ final. No methods or persistent instance variables must be declaredÂ final.
+  - If an entity instance is passed by value as a detached object, the class must implement theÂ SerializableÂ interface.
   - Entities may extend both entity and non-entity classes, and non-entity classes may extend entity classes.
   - Persistent instance variables must be declared private, protected, or package-private and can be accessed directly only by the entity class's methods.  
   
@@ -153,27 +153,32 @@ This is done by using the principle: [Configuration by Exception](http://stackov
 These can be used in the find() method of the EntityManager  
 
 ###DateTime
--Date object
+- Date object
 ```
 @Temporal(TemporalType.DATE)
 private Date dateOfBirth;
 ```   
-Timestamp:   ```
+- Timestamp
+``` 
 @Temporal(TemporalType.TIMESTAMP)
 private Date creationDate;
 ```
 
-###Transient - when fields should be excluded from persisting
-``` @Transient
-private int age;```
+###Transient 
+- when fields should be excluded from persisting   
 
-###Enums
-```public class Customer {
+```@Transient
+private int age; 
+```  
+###Enums  
+```
+public class Customer {
     @Enumerated(EnumType.STRING)
     private CustomerType customerType;
 } 
 ```
-And the Enum CustomerType: ```
+And the Enum CustomerType: 
+```
 public enum CustomerType {
   GOLD, 
   SILVER,
@@ -189,7 +194,7 @@ public enum CustomerType {
 Book2 book = new Book2(); //Just a POJO - an entity class can be used as a regular object in rest of application
 book.setDescription("some desc"); 
 EntityManagerFactory emf;  
-emf = Persistence.createEntityManagerFactory(“pu-x");  
+emf = Persistence.createEntityManagerFactory(â€œpu-x");  
 EntityManager em = emf.createEntityManager();  
 em.getTransaction().begin();
 em.persist(book);      //Here the object becomes 'managed' to load it into db
@@ -234,10 +239,13 @@ em.remove(book);  //No longer managed (just a POJO again)
 
 ###Collections and Maps (basic types)   
 
-With a java List:```
+With a java List:
+```
 @ElementCollection(fetch = FetchType.LAZY)
  private List<String> hobbies= new ArrayList();
-```With a java Map: ```
+```
+With a java Map: 
+```
  @ElementCollection(fetch = FetchType.LAZY)
  @MapKeyColumn(name = "PHONE") 
  @Column(name = "Description")  //Name of the Value column
@@ -258,7 +266,7 @@ With a java List:```
 The inverse side of a bidirectional relationship must refer to its owning side by use of the mappedBy element:  
 ```
 public class Customer .. {
-…
+â€¦
   @OneToMany(mappedBy = "customer") //Here we tell (EM) Where to find the owning side
   private List<Address> addresses = new ArrayList();
 ```
@@ -301,12 +309,8 @@ Many to many relationship:
 
 ###Cascading
 ![alt text](img/cascadeType.png)
-- Cascade is normally used to model dependent relationships, such as Order -> OrderLine.
-- Cascading the orderLines relationship allows for the Order's -> OrderLines to be persisted, removed, merged along with their parent. 
-
-
-
-
+- CascadeÂ is normally used to model dependent relationships, such asÂ OrderÂ ->Â OrderLine.
+- Cascading theÂ orderLinesÂ relationship allows for theÂ Order's ->Â OrderLines to be persisted, removed, merged along with their parent. 
 
 
 ##Inheritance  
@@ -343,7 +347,8 @@ cd.setNumbersOnCD(11);
 ![alt](img/singleTable.png)
 
 #### Single-Table example code:
-ITEM: ```
+ITEM: 
+```
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Item {
@@ -366,7 +371,8 @@ CD:
 public class CD extends Item {
 private int numbersOnCd;
 //Getters Setters
-}```
+}
+```
 SQL (in DB):
 ```
 CREATE TABLE ITEM (
@@ -479,7 +485,7 @@ With the table-per-concrete-class strategy, there is:
 ##Day 3 - JPQL
 ### Quering with JPQL
 - JPA provides several querying mechanisms:
-  - JPQL  
+  - JPQLÂ  
   - Criteria API
   - Native SQL Queries
 
@@ -497,18 +503,21 @@ With the table-per-concrete-class strategy, there is:
 - Named Queries 
   - Named queries are used for a static queries that will be used many times in the application. 
   - The advantage of a named query is that it can be defined once, in one place, and reused in the application.
-  - Declaring a Named Query: ```
+  - Declaring a Named Query: 
+```
 @NamedQuery( 
   name="findAllEmployeesInCity", 
   query="Select emp from Employee emp where emp.address.city = :city" 
 ) 
 public class Employee { ... }
 ```
-  - Executing a Named Query:```
+Executing a Named Query:
+```
 EntityManager em = getEntityManager(); 
 Query query = em.createNamedQuery("findAllEmployeesInCity"); 
 query.setParameter("city", "Ottawa"); 
-List<Employee> employees = query.getResultList();```
+List<Employee> employees = query.getResultList();
+```
 
 - Dynamic Queries
   - Dynamic queries are normally used when the query depends on the context. 
