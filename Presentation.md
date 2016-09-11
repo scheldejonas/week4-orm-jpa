@@ -45,7 +45,7 @@
   - Toplink  
 
 ###JPA architecture: javax.Persistence  
-  [!alt text](img/persistencePackage.png)
+  ![alt text](img/persistencePackage.png)
 
 ###Annotations   
 | Annotation | Description                                                           |
@@ -74,7 +74,7 @@
 ###The Entity class
 - Typically, an entity represents a table in a relational database, 
 - Each entity instance corresponds to a row in that table.  
-[!alt text](img/entity2table.png)
+![alt text](img/entity2table.png)
 - Entity classes are very similar to Java beans in that they follow a set of rules.
 - Entity Classes must (:
   - be annotated with the @Entity annotation.
@@ -106,6 +106,13 @@ This is done by using the principle: [Configuration by Exception](http://stackov
 
 ###Let's demo!  
 <img align="right" src="img/demoman.png" />  
+
+
+
+
+
+
+
 
 ###Persistence.xml: the Persistence Unit (PU)
   - registers the database and specify the entity class  
