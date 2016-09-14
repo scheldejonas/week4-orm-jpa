@@ -25,6 +25,8 @@ Resources:
 [Simple JPA](https://hendrosteven.wordpress.com/2008/03/06/simple-jpa-application-with-netbeans)  
 [More detailed JPA](http://www.javacodegeeks.com/2015/02/jpa-tutorial.html) - this one provides detailed information  
 
+
+
 ## Day 1: Introduction to ORM
 [Tutorial for JPA](http://www.tutorialspoint.com/jpa/jpa_introduction.htm)
 - Java Persistence API is a source to store business entities (java objects) as relational entities (db tables) 
@@ -45,7 +47,60 @@ Resources:
   - registers the database and specify the entity class
 - Getting started: set up the first project.
 
+
+###Exercise 1 - Basic JPA
+[Find the exercise here](exercises/JPA_MappingExercise-1.pdf)
+
+
+
 ##Day 2 - More JPA
-- 
-- 
+- JPA mapping directions  
+
+| Cardinality | Direction               |  Example |
+|-------------|-------------------------|----------|
+| One-to-one  | Unidirectional  | person and car |
+| One-to-one  | Bidirectional   | person and spouse|
+| One-to-many | Unidirectional  | workplace and work station |
+| Many-to-one/one-to-many | Bidirectional| student and teacher |
+| Many-to-one | Unidirectional  | student and school |
+| Many-to-many| Unidirectional  | person and phone |
+| Many-to-many| Bidirectional   | employee and company car |
+
+- In relational database it is always a unidirectional relationship based on foreign keys
+- In OO Programming Objects can have reference to each other  
+
+```java 
+//In the Student class
+private Teacher teacher;
+//In the Teacher class
+private List<Student> students;
+``` 
+
+
+###Exercise 2 - Relationships
+[Find the exercise here](exercises/JPA_MappingExercise-2.pdf)
+
+
+
+##Day 3 - JPA and Inheritance
+- The 3 strategies for mapping inheritance in database tables
+
+
+
+###Exercise 3 - Inheritance
+[Find the exercise here](exercises/JPA_MappingExercise-3.pdf)
+
+
+
+##Day 4 - JPQL
+- Java Persitence Query Language
+- Query the managed objects using the Entity Manager
+- Like SQL 
+- Query Objects and fields instead of tables and collumns
+
+
+
+###Exercise 4 - JPQL
+[Find the exercise here](exercises/JPQL_Exercise.docx)
+
 

@@ -7,6 +7,7 @@
   - Inheritance: Objects with inheritance hierarchy to be mirrored in tables
   - DB tables contains only scalar values like int and string.
 
+
 ###Pros and Cons  
   - Pros:
     - ORM typically reduces the amount of code that needs to be written
@@ -19,6 +20,7 @@
     - There are a variety of difficulties that arise when considering how to match an object system to a relational database. 
 - Our goal is to uphold the illusion that we are only working in an OO world (even when manipulating data)  
 
+
 ###Some questions that arise  
 - How are columns, rows, tables mapped to objects?
 - How are relationships handled?
@@ -30,6 +32,7 @@
   - Relational model designed for data storage/retrieval
   - Object Oriented model is about modelling behaviour 
 
+
 ###Java vs DB: Mismatch issues
 - Example – collections versus tables 
   - Java/C# use collections to manage lists of objects
@@ -39,13 +42,16 @@
   - Databases uses blobs to manage large objects as simple binary data
   - Java/C# use objects with behaviors 
 
+
 ###JPA providers:  
   - Hybernate  
   - **EclipseLink** [reference](https://en.wikibooks.org/wiki/Java_Persistence/EclipseLink)  
   - Toplink  
 
+
 ###JPA architecture: javax.Persistence  
   ![alt text](img/persistencePackage.png)  
+
 
 - Entities are managed by the entity manager, which is represented by javax.persistence.EntityManager instances. 
 - Each EntityManager instance is associated with a persistence context: a set of managed entity instances that exist in a particular data store. 
@@ -77,7 +83,7 @@
   - <property name="eclipselink.logging.level.sql" value="FINE"/><property name="eclipselink.logging.parameters" value="true"/>  
 
 
-###Annotations   
+###Annotations    
 | Annotation | Description                                                           |
 |------------|-----------------------------------------------------------------------|
 |@Entity     |	This annotation specifies to declare the class as entity or a table. |
@@ -209,9 +215,35 @@ em.remove(book);  //No longer managed (just a POJO again)
 
 
 
-###Chicken or Egg
+###Chicken or Egg   
+Which came first... 
+
 ![alt text](img/chickenEgg.jpg)
 <img align="right" src="img/tableOrClass.png" />  
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
 
 ###Let's demo!  
 - Create table from Entity object
@@ -233,9 +265,9 @@ em.remove(book);  //No longer managed (just a POJO again)
 
 
 
-##Day 2 - More JPA
+##Day 2 - JPA relationships
 ### Relationships
-[JPA relationships](http://www.tutorialspoint.com/jpa/jpa_entity_relationships.htm)  
+[JPA relationships by tutorialspoint](http://www.tutorialspoint.com/jpa/jpa_entity_relationships.htm)  
 
 ###Collections and Maps (basic types)   
 
@@ -313,7 +345,7 @@ Many to many relationship:
 - Cascading the orderLines relationship allows for the Order's -> OrderLines to be persisted, removed, merged along with their parent. 
 
 
-##Inheritance  
+##Day3 - Inheritance  
 Look at this example
 ![alt text](img/inheritance.png)
 
@@ -479,10 +511,10 @@ With the table-per-concrete-class strategy, there is:
 <img align="right" src="img/demoman.png" />  
 
 
-###Exercise 2 - Relationships
-[Find the exercise here](exercises/JPA_MappingExercise-2.pdf)
+###Exercise 3 - Inheritance
+[Find the exercise here](exercises/JPA_MappingExercise-3.pdf)
 
-##Day 3 - JPQL
+##Day 4 - JPQL
 ### Quering with JPQL
 - JPA provides several querying mechanisms:
   - JPQL  
@@ -527,3 +559,8 @@ List<Employee> employees = query.getResultList();
 
 ### Lets Demo
 <img align="right" src="img/demoman.png" />  
+
+
+
+###Exercise 4 - JPQL
+[Find the exercise here](exercises/JPQL_Exercise.docx)
