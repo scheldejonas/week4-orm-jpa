@@ -1,14 +1,16 @@
 #ORM (Object Relational Mapping) with JPA (Java Persistence API)
-##Step by step:
-Purpose: Simple walk through of JPA Steps: 
-1. Create the project.
-2. Create a database and connect (for this demo I use mysql database: jpa1)
-3. Add the MYSQL JDBC Driver to the project libraries 
-4. Create a new Persistance Unit (right click project and choose new...) 
-  - choose EclipseLink JPA 2.1 (Should be the default choice for the Persistence Provider) 
-5. Create new file -> Entity Class. 
+##Step by step:  
+Purpose: Simple walk through of JPA Steps:  
+
+1. Create the project.  
+2. Create a database and connect (for this demo I use mysql database: jpa1)  
+3. Add the MYSQL JDBC Driver to the project libraries   
+4. Create a new Persistance Unit (right click project and choose new..-> Persistence ...)   
+  - choose EclipseLink JPA 2.1 (Should be the default choice for the Persistence Provider)  
+5. Create new file -> Entity Class.   
   - Name it Person. and give it fields (ID, age, name)
   - Run this class to create a db table from the entities:
+
 ```java
 public class Creater {
     public static void main(String[] args) {
