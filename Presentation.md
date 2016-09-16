@@ -21,6 +21,8 @@
 - Our goal is to uphold the illusion that we are only working in an OO world (even when manipulating data)  
 
 
+
+
 ###Some questions that arise  
 - How are columns, rows, tables mapped to objects?
 - How are relationships handled?
@@ -33,6 +35,8 @@
   - Object Oriented model is about modelling behaviour 
 
 
+
+
 ###Java vs DB: Mismatch issues
 - Example – collections versus tables 
   - Java/C# use collections to manage lists of objects
@@ -43,6 +47,7 @@
   - Java/C# use objects with behaviors 
 
 
+
 ###JPA providers:  
   - Hybernate  
   - **EclipseLink** [reference](https://en.wikibooks.org/wiki/Java_Persistence/EclipseLink)  
@@ -51,6 +56,7 @@
 
 ###JPA architecture: javax.Persistence  
   ![alt text](img/persistencePackage.png)  
+
 
 
 - Entities are managed by the entity manager, which is represented by javax.persistence.EntityManager instances. 
@@ -64,23 +70,32 @@
   - can use JPQL queries to retrieve entities following certain criteria.  
 
 
+
+
 ###Persistence.xml: the Persistence Unit (PU)
-  - registers the database and specify the entity class  
+  - registers the database and specify the entity classes 
   - Drop and Create, Create or ...  
   - Remember to ALWAYs **clean and build** the project after changing the PU.  
+ 
 - The entities  
   - Try creating an entity from a database  
   - Try creating a database from an entity  
-  - Pros and Cons  
+  - Benefits of either way:
     - Easier to write the objects and let JPA worry about the tables  
     - When JPA creates the Entity we get a few Named Queries "for free".  
-- Getting started: set up the first project.  
+
+
+  
+## Getting started: set up the first project.  
 1. Create the project.
 2. Create a database and connect (for this demo I use mysql database: jpa1)
-3. Add the MYSQL JDBC Driver to the project libraries 
+3. Add the MYSQL JDBC Driver to the project libraries (maven: [add this dependency to POM.XML](https://mvnrepository.com/artifact/mysql/mysql-connector-java/5.1.39#maven)  
 4. Create a new Persistance Unit (right click project and choose new...) choose EclipseLink JPA 2.1 (Should be the default choice for the Persistence Provider) 
-5. Create new file -> Entity Class. Name it Person. Then create the file below with an EntityManager based on the Persistence Unit See how running the persist() method creates a new table in the database called person with ID, Age and Name. To get the created SQL from EclipseLink insert the following 2 property lines in to the persistence.xml. :
-  - <property name="eclipselink.logging.level.sql" value="FINE"/><property name="eclipselink.logging.parameters" value="true"/>  
+5. Create new file -> Entity Class. Name it Person. Then create the file below with an EntityManager based on the Persistence Unit See how running the persist() method creates a new table in the database called person with ID, Age and Name. To get the created SQL from EclipseLink insert the following 2 property lines in to the persistence.xml. :  
+```
+<property name="eclipselink.logging.level.sql" value="FINE"/>  
+<property name="eclipselink.logging.parameters" value="true"/> 
+```   
 
 
 ###Annotations    
@@ -120,21 +135,22 @@
   - Entities may extend both entity and non-entity classes, and non-entity classes may extend entity classes.
   - Persistent instance variables must be declared private, protected, or package-private and can be accessed directly only by the entity class's methods.  
   
-###Entity example:  
-```java  
-@Entity 
-public class Book
-{
-  @Id private Long id;
-  private String title;
-  private Float price;
-  private String description;
-  private String isbn;
-  private Integer nbOfPage;
-  private Boolean illustrations;
-  public Book() { }
+###Entity example: 
+ 
+```
+  ** @Entity **
+   public class Book
+   {
+	  **@Id** private Long id;
+	  private String title;
+	  private Float price;
+	  private String description;
+	  private String isbn;
+	  private Integer nbOfPage;
+	  private Boolean illustrations;
+	  public Book() { }
   // Getters, setters
- }
+  }  
 ```  
 Above example shows how 2 annotations is enough to turn this class into a JPA entity.
 This is done by using the principle: [Configuration by Exception](http://stackoverflow.com/questions/34125441/what-is-exactely-a-configuration-by-exception-in-jpa)
@@ -155,6 +171,7 @@ This is done by using the principle: [Configuration by Exception](http://stackov
 - 2 ways <more info and examples here>
   - With an Id class
   - With an embeddable class 
+  - [See further explanation here](http://www.objectdb.com/java/jpa/entity/id#Composite_Primary_Key_)
 
 These can be used in the find() method of the EntityManager  
 
@@ -176,10 +193,14 @@ private Date creationDate;
 ```@Transient
 private int age; 
 ```  
-###Enums  
+
+
+
+###Enums 
+To ensure that the actual text (and not just the enum index) is stored in the entity table: 
 ```
 public class Customer {
-    @Enumerated(EnumType.STRING)
+    **@Enumerated**(EnumType.STRING)
     private CustomerType customerType;
 } 
 ```
@@ -192,6 +213,7 @@ public enum CustomerType {
   RUSTY 
 }
 ```
+
 
 
 ###Entity Manager example:   
@@ -210,13 +232,14 @@ em.remove(book);  //No longer managed (just a POJO again)
 ```   
 
 
+
 ###Entity life cycle
 ![alt text](img/entityLifeCycle.png)  
 
 
 
 ###Chicken or Egg   
-Which came first... 
+*Which came first... ??*
 
 ![alt text](img/chickenEgg.jpg)
 <img align="right" src="img/tableOrClass.png" />  
@@ -297,12 +320,12 @@ With a java Map:
 ###Bidirectional relationships
 The inverse side of a bidirectional relationship must refer to its owning side by use of the mappedBy element:  
 ```
-public class Customer .. {
-…
+public class Customer { 
+  //...
   @OneToMany(mappedBy = "customer") //Here we tell (EM) Where to find the owning side
-  private List<Address> addresses = new ArrayList();
-```
-```
+  private List<Address> addresses = new ArrayList();   
+```   
+```  
 @Entity
 public class Address ..{
   private static final long serialVersionUID = 1L;
@@ -333,16 +356,34 @@ Many to many relationship:
 
 
 ###Lazy loading (fetching)
-![alt text](img/lazyload.png)
+![alt text](img/lazyload.png)  
+
 - The cost of retrieving and building an object's relationships far exceeds the cost of selecting the object
 - The solution to this issue is lazy fetching (lazy loading). 
 - Lazy fetching allows the fetching of a relationship to be deferred until it is accessed
 
 
 ###Cascading
-![alt text](img/cascadeType.png)
-- Cascade is normally used to model dependent relationships, such as Order -> OrderLine.
+![alt text](img/cascadeType.png)   
+- Cascade is normally used to model dependent relationships, such as Order -> OrderLine.  
 - Cascading the orderLines relationship allows for the Order's -> OrderLines to be persisted, removed, merged along with their parent. 
+
+1. ALL: this is means that a references object is being treated in all ways as the main object.
+2. Detach: Detached objects are useful in situations in which an EntityManager is not available and for transferring objects between different EntityManager instances.
+3. Merge: The content of the specified detached entity object is copied into an existing managed entity object with the same identity (i.e. same type and primary key). If the EntityManager does not manage such an entity object yet a new managed entity object is constructed. The detached object itself, however, remains unchanged and detached. This makes merge well suited to a method like `facade.add(person)` - where person is a detached object holding the changes we want to make to the person table tuble with that same id.
+4. Persist: is where we register a new object with the Entity Manager (making it a managed object) The object is commited to database only when the transaction is commited (Persist can only work inside a transaction like   ```java  
+    em.getTransaction().begin();
+    em.persist(customer);
+    em.getTransaction().commit();
+```
+5. Refresh: Overwrites data in the managed object with data from the database.
+6. Remove: Removes the object from the database:
+```
+	Employee employee = em.find(Employee.class, 1);
+    em.getTransaction().begin();
+    em.remove(employee);
+    em.getTransaction().commit();
+``` 
 
 
 ##Day3 - Inheritance  
