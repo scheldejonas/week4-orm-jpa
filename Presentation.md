@@ -84,7 +84,23 @@
     - Easier to write the objects and let JPA worry about the tables  
     - When JPA creates the Entity we get a few Named Queries "for free".  
 
-
+Example:  
+```
+    @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
+    @NamedQuery(name = "Customer.findByCustomerNumber", query = "SELECT c FROM Customer c WHERE c.customerNumber = :customerNumber"),
+    @NamedQuery(name = "Customer.findByCustomerName", query = "SELECT c FROM Customer c WHERE c.customerName = :customerName"),
+    @NamedQuery(name = "Customer.findByContactLastName", query = "SELECT c FROM Customer c WHERE c.contactLastName = :contactLastName"),
+    @NamedQuery(name = "Customer.findByContactFirstName", query = "SELECT c FROM Customer c WHERE c.contactFirstName = :contactFirstName"),
+    @NamedQuery(name = "Customer.findByPhone", query = "SELECT c FROM Customer c WHERE c.phone = :phone"),
+    @NamedQuery(name = "Customer.findByAddressLine1", query = "SELECT c FROM Customer c WHERE c.addressLine1 = :addressLine1"),
+    @NamedQuery(name = "Customer.findByAddressLine2", query = "SELECT c FROM Customer c WHERE c.addressLine2 = :addressLine2"),
+    @NamedQuery(name = "Customer.findByCity", query = "SELECT c FROM Customer c WHERE c.city = :city"),
+    @NamedQuery(name = "Customer.findByState", query = "SELECT c FROM Customer c WHERE c.state = :state"),
+    @NamedQuery(name = "Customer.findByPostalCode", query = "SELECT c FROM Customer c WHERE c.postalCode = :postalCode"),
+    @NamedQuery(name = "Customer.findByCountry", query = "SELECT c FROM Customer c WHERE c.country = :country"),
+    @NamedQuery(name = "Customer.findByCreditLimit", query = "SELECT c FROM Customer c WHERE c.creditLimit = :creditLimit"),
+    @NamedQuery(name = "Customer.findCount", query = "SELECT COUNT(c) FROM Customer c")})
+```
   
 ## Getting started: set up the first project.  
 1. Create the project.
@@ -121,6 +137,8 @@
 |@OneToOne	| This annotation is used to define a one-to-one relationship between the join Tables.|
 |@NamedQueries	| This annotation is used for specifying list of named queries.|
 |@NamedQuery	| This annotation is used for specifying a Query using static name.|  
+
+
 
 ###The Entity class
 - Typically, an entity represents a table in a relational database, 
@@ -266,6 +284,20 @@ em.remove(book);  //No longer managed (just a POJO again)
 <br>
 <br>
 
+### Queries 
+- Example of using a 
+ 
+
+- Example of using a named query to select an aggregated value (rather than an object)
+```
+//Inside a JPA entity class: Customer
+@NamedQuery(name = "Customer.findCount", query = "SELECT COUNT(c) FROM Customer c")})
+
+//In a calling method from a facade class:
+Query query3 = em.createNamedQuery("Customer.findCount");
+int count = ((Number)query3.getSingleResult()).intValue();
+System.out.println(count);
+```
 
 
 ###Let's demo!  
@@ -275,8 +307,14 @@ em.remove(book);  //No longer managed (just a POJO again)
 <img align="right" src="img/demoman.png" />  
 
 
-
-
+###Persist a dirty object
+- When updating a table row in the database with a new object (with same id)
+	```
+      em.getTransaction().begin();
+      em.merge(myChangedObject);
+      em.getTransaction().commit();
+```
+- As long as the id (primary key) is the same merge() will persist the new data into the specific table row.
 
 ###Resources:
  [jpa example](https://hendrosteven.wordpress.com/2008/03/06/simple-jpa-application-with-netbeans/)
@@ -294,12 +332,15 @@ em.remove(book);  //No longer managed (just a POJO again)
 
 ###Collections and Maps (basic types)   
 
-With a java List:
+With a java List:  
+
 ```
 @ElementCollection(fetch = FetchType.LAZY)
  private List<String> hobbies= new ArrayList();
 ```
+
 With a java Map: 
+
 ```
  @ElementCollection(fetch = FetchType.LAZY)
  @MapKeyColumn(name = "PHONE") 
@@ -315,7 +356,9 @@ With a java Map:
 | Many-to-one/one-to-many | Bidirectional| student and teacher |
 | Many-to-one | Unidirectional  | student and school |
 | Many-to-many| Unidirectional  | person and phone |
-| Many-to-many| Bidirectional   | employee and company car |
+| Many-to-many| Bidirectional   | employee and company car |   
+
+
 
 ###Bidirectional relationships
 The inverse side of a bidirectional relationship must refer to its owning side by use of the mappedBy element:  
@@ -344,6 +387,7 @@ Many to many relationship:
 ![alt text](img/many_to_many_relation.png)  
 
 - when bidirectional be ALERT!! on setting the reference on both objects  
+ 
 ```java
     PhoneNo phone = new PhoneNo();
     Person person1 = new Person();
@@ -353,6 +397,17 @@ Many to many relationship:
     em.persist(person1);
     em.persist(phone);
 ```
+
+Example of a self referenced bidirectional relationship. Eg. A person can be a supervisor for other persons and can himself be supervised by a person. In order to set this up we need both a reference to a supervisor in each person and also a list of persons to supervise:  
+
+```
+    @ManyToOne
+    private Person supervisor;
+    @OneToMany(mappedBy = "supervisor") 
+    private List<Person> supervised;
+```  
+![Alt](img/bidirectionalselfreference.png)
+
 
 
 ###Lazy loading (fetching)
@@ -384,6 +439,7 @@ Many to many relationship:
     em.remove(employee);
     em.getTransaction().commit();
 ``` 
+
 
 
 ##Day3 - Inheritance  
