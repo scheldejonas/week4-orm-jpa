@@ -204,6 +204,13 @@ private Date dateOfBirth;
 @Temporal(TemporalType.TIMESTAMP)
 private Date creationDate;
 ```
+Full example
+```
+    @Basic(optional = false)
+    @Column(name = "created", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
+```
 
 ###Transient 
 - when fields should be excluded from persisting   
@@ -285,9 +292,7 @@ em.remove(book);  //No longer managed (just a POJO again)
 <br>
 
 ### Queries 
-- Example of using a 
- 
-
+- Example of using native queries and named queries...
 - Example of using a named query to select an aggregated value (rather than an object)
 ```
 //Inside a JPA entity class: Customer
@@ -305,6 +310,22 @@ System.out.println(count);
 - Create Entity from table.
 
 <img align="right" src="img/demoman.png" />  
+
+
+
+###Some code examples
+Generating the factory:  
+`EntityManagerFactory emf = Persistence.createEntityManagerFactory("localPU");`
+
+Using the entity manager:  
+```
+EntityManager em = emy.createEntityManager();
+emr.getTransaction().begin();
+em.persist( new Event( "Our very first event!", new Date() ) );
+em.persist( new Event( "A follow up event", new Date() ) );
+em.getTransaction().commit();
+em.close();
+```
 
 
 ###Persist a dirty object
@@ -329,6 +350,8 @@ System.out.println(count);
 ##Day 2 - JPA relationships
 ### Relationships
 [JPA relationships by tutorialspoint](http://www.tutorialspoint.com/jpa/jpa_entity_relationships.htm)  
+
+
 
 ###Collections and Maps (basic types)   
 
@@ -360,6 +383,7 @@ With a java Map:
 
 
 
+
 ###Bidirectional relationships
 The inverse side of a bidirectional relationship must refer to its owning side by use of the mappedBy element:  
 ```
@@ -374,9 +398,19 @@ public class Address ..{
   private static final long serialVersionUID = 1L;
   ..
   @ManyToOne
-  private Customer customer; //This is the owning side (The side that holds the Foreign Key in DB)
-```
+  private Customer customer; //This is the owning side (The side that holds the Foreign Key in DB)  
+```  
+
 - For many-to-many bidirectional relationships either side may be the owning side
+```
+@ManyToMany
+  @JoinTable(
+      name="EMP_PROJ",
+      joinColumns=@JoinColumn(name="EMP_ID", referencedColumnName="ID"),
+      inverseJoinColumns=@JoinColumn(name="PROJ_ID", referencedColumnName="ID"))
+  private List<Project> projects;
+```
+[Further info here](https://en.wikibooks.org/wiki/Java_Persistence/ManyToMany)
 
 ### 2 examples
 Many to One relationship  

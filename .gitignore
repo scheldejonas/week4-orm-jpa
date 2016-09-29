@@ -29,3 +29,8 @@ solution/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/demo/deployment/DeployJPAtest/target/
+/demo/day1/JPAdemo/JPAdemo/nbproject/
+/demo/day1/JPAdemo/JPAdemo/target/
+/demo/day2/JPARelationshipDemo/target/
+/demo/day2/JPARelationshipDemo/nbproject/
