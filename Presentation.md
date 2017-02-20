@@ -470,13 +470,11 @@ Example of a self referenced bidirectional relationship. Eg. A person can be a s
 ```  <br>  
 5. Refresh: Overwrites data in the managed object with data from the database.  
 6. Remove: Removes the object from the database:   
-```
-	Employee employee = em.find(Employee.class, 1);
+```Employee employee = em.find(Employee.class, 1);
     em.getTransaction().begin();
     em.remove(employee);
     em.getTransaction().commit();  
 ```   
-
 
 ##Day3 - Inheritance  
 Look at this example
