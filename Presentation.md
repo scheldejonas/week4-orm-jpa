@@ -461,20 +461,21 @@ Example of a self referenced bidirectional relationship. Eg. A person can be a s
 1. ALL: this is means that a references object is being treated in all ways as the main object.
 2. Detach: Detached objects are useful in situations in which an EntityManager is not available and for transferring objects between different EntityManager instances.
 3. Merge: The content of the specified detached entity object is copied into an existing managed entity object with the same identity (i.e. same type and primary key). If the EntityManager does not manage such an entity object yet a new managed entity object is constructed. The detached object itself, however, remains unchanged and detached. This makes merge well suited to a method like `facade.add(person)` - where person is a detached object holding the changes we want to make to the person table tuble with that same id.
-4. Persist: is where we register a new object with the Entity Manager (making it a managed object) The object is commited to database only when the transaction is commited (Persist can only work inside a transaction like   ```java  
+4. Persist: is where we register a new object with the Entity Manager (making it a managed object) The object is commited to database only when the transaction is commited (Persist can only work inside a transaction like    
+
+```java  
     em.getTransaction().begin();
     em.persist(customer);
     em.getTransaction().commit();
-```
-5. Refresh: Overwrites data in the managed object with data from the database.
-6. Remove: Removes the object from the database:
+```  <br>  
+5. Refresh: Overwrites data in the managed object with data from the database.  
+6. Remove: Removes the object from the database:   
 ```
 	Employee employee = em.find(Employee.class, 1);
     em.getTransaction().begin();
     em.remove(employee);
-    em.getTransaction().commit();
-``` 
-
+    em.getTransaction().commit();  
+```   
 
 
 ##Day3 - Inheritance  
