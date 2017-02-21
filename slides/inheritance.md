@@ -29,7 +29,7 @@ cd.setNumbersOnCD(11);
 - A single table is used to store all of the instances of the entire inheritance hierarchy. 
 - The table will have a column for every attribute of every class in the hierarchy. 
 - A discriminator column is used to determine which class the particular row belongs to.
-![alt](img/singleTable.png)
+![alt](../img/singleTable.png)
 
 #### Single-Table example code:
 ITEM: 
@@ -84,8 +84,8 @@ CREATE TABLE ITEM (
 - Each table in the hierarchy must also store the object's id (primary key), defined in the root class
 - All classes in the hierarchy must share the same id attribute
 - A discriminator column is used to determine which class the particular row belongs to.
-![alt](img/joinedTable.png)
-![alt](img/inheritance.png)
+![alt](../img/joinedTable.png)
+![alt](../img/inheritance.png)
 
 
 ### Joined table example code
@@ -143,7 +143,7 @@ CREATE TABLE BOOK (
 ### Inheritance strategy: Table-Per-Class
 - From a database point of view, this strategy denormalizes the model 
 - Causes all root entity attributes to be redefined in the tables of all leaf entities that inherit from it.  
-![alt](img/tablePerClass.png)
+![alt](../img/tablePerClass.png)
 
 With the table-per-concrete-class strategy, there is:
 - no shared table
@@ -158,10 +158,10 @@ With the table-per-concrete-class strategy, there is:
   - Entity Support for this strategy is optional in JPA 2.0.
 
 
-![alt text](img/tablePerClass.png)
+![alt text](../img/tablePerClass.png)
 
 ### Lets Demo
-<img align="right" src="img/demoman.png" />  
+<img align="right" src="../img/demoman.png" />  
 
 
 ###Exercise 3 - Inheritance
