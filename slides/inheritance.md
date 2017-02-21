@@ -1,6 +1,6 @@
 #Day3 - Inheritance  
 Look at this example
-![alt text](img/inheritance.png)
+![alt text](../img/inheritance.png)
 
 ```
 //ITEM:
