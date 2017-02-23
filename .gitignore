@@ -34,6 +34,7 @@ hs_err_pid*
 /demo/day1/JPAdemo/JPAdemo/target/
 /demo/day2/JPARelationshipDemo/target/
 /demo/day2/JPARelationshipDemo/nbproject/
+<<<<<<< HEAD
 
 exercises/training-single-table-strategy-jpa/.idea/
 
@@ -48,3 +49,5 @@ exercises/training-single-table-strategy-jpa/out/
 exercises/training-single-table-strategy-jpa/target/
 
 examples/jpa1/.idea/workspace.xml
+
+/demo/JPADemo/target/

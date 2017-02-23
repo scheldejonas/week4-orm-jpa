@@ -1,5 +1,7 @@
 #Day 4 - JPQL
 ### Quering with JPQL
+
+[Reference material](https://en.wikibooks.org/wiki/Java_Persistence/JPQL)  
 - JPA provides several querying mechanisms:
   - JPQL  
   - Criteria API
