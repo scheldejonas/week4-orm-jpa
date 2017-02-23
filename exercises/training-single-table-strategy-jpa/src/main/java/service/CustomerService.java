@@ -8,7 +8,7 @@ import java.util.List;
  * Created by scheldejonas on 23/02/2017.
  */
 public interface CustomerService {
-    List<Customer> findAllCustomers();
+    List<Customer> findAll();
 
     void save(Customer customer);
 }

@@ -6,15 +6,17 @@ import javax.persistence.*;
  * Created by scheldejonas on 22/02/2017.
  */
 @Entity
-@Table(name = "Customer")
+@Table(name = "CUSTOMER")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "price")
+    @Column(name = "PRICE")
     private int price;
+    @Column(name = "FIRST_NAME")
+    private String firstName;
 
     public Customer() {
     }
@@ -43,4 +45,7 @@ public class Customer {
                 '}';
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 }

@@ -3,6 +3,8 @@ import dao.CustomerDaoImpl;
 import domain.Customer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import service.CustomerService;
+import service.CustomerServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +14,5 @@ import java.util.List;
  */
 public class Application {
     public static void main(String[] args) {
-        List<Customer> customerList = new ArrayList<>();
-        customerList = new CustomerDaoImpl().findAllCustomers();
     }
 }

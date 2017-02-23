@@ -1,0 +1,11 @@
+<!DOCTYPE hibernate-configuration SYSTEM
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.cache.provider_class">org.hibernate.CacheMode</property>
+        <property name="hibernate.cache.use_minimal_puts">true</property>
+    </session-factory>
+</hibernate-configuration>

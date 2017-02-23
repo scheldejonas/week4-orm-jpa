@@ -51,3 +51,5 @@ exercises/training-single-table-strategy-jpa/target/
 examples/jpa1/.idea/workspace.xml
 
 /demo/JPADemo/target/
+
+exercises/training-single-table-strategy-jpa/training-single-table-strategy-jpa.iml

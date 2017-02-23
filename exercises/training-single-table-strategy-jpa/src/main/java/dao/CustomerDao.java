@@ -10,5 +10,5 @@ import java.util.List;
 public interface CustomerDao {
     void save(Customer customer);
 
-    List<Customer> findAllCustomers();
+    List<Customer> findAll();
 }

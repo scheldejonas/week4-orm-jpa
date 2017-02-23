@@ -12,7 +12,7 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService {
 
     private static CustomerService singleton = null;
-    private CustomerDao customerDao = CustomerDaoImpl.getInstance();
+    private CustomerDao customerDao = CustomerDaoImpl.getSingleton();
 
     private CustomerServiceImpl() {
     }
@@ -25,8 +25,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> findAllCustomers() {
-        return customerDao.findAllCustomers();
+    public List<Customer> findAll() {
+        return customerDao.findAll();
     }
 
     @Override

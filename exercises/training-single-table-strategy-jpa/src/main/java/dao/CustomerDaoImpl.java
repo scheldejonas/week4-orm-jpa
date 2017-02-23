@@ -2,10 +2,12 @@ package dao;
 
 import config.DataConfig;
 import domain.Customer;
+import org.omg.CORBA.DATA_CONVERSION;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,10 +19,10 @@ public class CustomerDaoImpl implements CustomerDao {
     private EntityManagerFactory trainingJpaEntityManager = null;
 
     private CustomerDaoImpl() {
-        this.trainingJpaEntityManager = DataConfig.getInstanceOfEntityManagerFactory();
+        this.trainingJpaEntityManager = DataConfig.getSingleton().getEntityManagerFactory();
     }
 
-    public static CustomerDao getInstance() {
+    public static CustomerDao getSingleton() {
         if (singleton == null) {
             singleton = new CustomerDaoImpl();
         }
@@ -31,54 +33,34 @@ public class CustomerDaoImpl implements CustomerDao {
     public void save(Customer customer) {
         EntityManager entityManager = trainingJpaEntityManager.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
-        entityTransaction.begin();
-        entityManager.persist(customer);
-        entityTransaction.commit();
-        entityManager.close();
+        try {
+            entityTransaction.begin();
+            entityManager.persist(customer);
+            entityTransaction.commit();
+        } catch (Exception exception) {
+            entityTransaction.rollback();
+            exception.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
     }
 
     @Override
-    public List<Customer> findAllCustomers() {
+    public List<Customer> findAll() {
         EntityManager entityManager = trainingJpaEntityManager.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
-        entityTransaction.begin();
-        List<Customer> customerList = entityManager.createQuery("select c from Customer c order by c.id asc").getResultList();
-        entityTransaction.commit();
-        entityManager.close();
+        List<Customer> customerList = new ArrayList<>();
+        try {
+            entityTransaction.begin();
+            customerList = entityManager.createQuery("select c from Customer c order by c.id asc").getResultList();
+            entityTransaction.commit();
+        } catch (Exception exception) {
+            entityTransaction.rollback();
+            exception.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
         return customerList;
     }
-
-
-    // Start EntityManagerFactory
-//        EntityManagerFactory emf =
-//                Persistence.createEntityManagerFactory("helloworld");
-//        // First unit of work
-//        EntityManager em = emf.createEntityManager();
-//        EntityTransaction tx = em.getTransaction();
-//        tx.begin();
-//        Message message = new Message("Hello World");
-//        em.persist(message);
-//        tx.commit();
-//        em.close();
-//        // Second unit of work
-//        EntityManager newEm = emf.createEntityManager();
-//        EntityTransaction newTx = newEm.getTransaction();
-//        newTx.begin();
-//        List messages = newEm
-//                .createQuery("select m from Message m
-//                        ➥ order by m.text asc")
-//                                .getResultList();
-//
-//        System.out.println( messages.size() + " message(s) found" );
-//        for (Object m : messages) {
-//            Message loadedMsg = (Message) m;
-//            System.out.println(loadedMsg.getText());
-//        }
-//        newTx.commit();
-//        newEm.close();
-//        // Shutting down the application
-//        emf.close();
-
-
 
 }
