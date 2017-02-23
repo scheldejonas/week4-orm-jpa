@@ -34,16 +34,17 @@ hs_err_pid*
 /demo/day1/JPAdemo/JPAdemo/target/
 /demo/day2/JPARelationshipDemo/target/
 /demo/day2/JPARelationshipDemo/nbproject/
-exercises/training-single-table-strategy-jpa/.idea/.name
 
-exercises/training-single-table-strategy-jpa/.idea/compiler.xml
+exercises/training-single-table-strategy-jpa/.idea/
 
-exercises/training-single-table-strategy-jpa/.idea/misc.xml
+examples/jpa1/.idea/
 
-exercises/training-single-table-strategy-jpa/.idea/modules.xml
+examples/jpa1/jpa1.iml
 
-exercises/training-single-table-strategy-jpa/.idea/vcs.xml
+exercises/training-single-table-strategy-jpa/.idea/
 
-exercises/training-single-table-strategy-jpa/.idea/workspace.xml
+exercises/training-single-table-strategy-jpa/out/
 
-exercises/training-single-table-strategy-jpa/training-single-table-strategy-jpa.iml
+exercises/training-single-table-strategy-jpa/target/
+
+examples/jpa1/.idea/workspace.xml
