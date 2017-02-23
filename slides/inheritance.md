@@ -165,4 +165,4 @@ With the table-per-concrete-class strategy, there is:
 
 
 ###Exercise 3 - Inheritance
-[Find the exercise here](exercises/JPA_MappingExercise-3.pdf)
+[Find the exercise here](../exercises/JPA_MappingExercise-3.pdf)
